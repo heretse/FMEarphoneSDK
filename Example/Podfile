@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'FMEarphoneSDK_Example' do
+  pod 'FMEarphoneSDK', :path => '../'
+
+  target 'FMEarphoneSDK_Tests' do
+    inherit! :search_paths
+
+    pod 'FBSnapshotTestCase'
+  end
+end
