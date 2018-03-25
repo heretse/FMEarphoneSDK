@@ -22,7 +22,7 @@ pod 'FMEarphoneSDK'
 
 ## Author
 
-heretse@gmail.com, winston_hsieh@gemteks.com
+heretse@gmail.com
 
 ## License
 
