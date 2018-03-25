@@ -1,0 +1,22 @@
+{
+  "name": "FMEarphoneSDK",
+  "version": "0.1.0",
+  "summary": "A short description of FMEarphoneSDK.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/heretse@gmail.com/FMEarphoneSDK",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "heretse@gmail.com": "winston_hsieh@gemteks.com"
+  },
+  "source": {
+    "git": "https://github.com/heretse/FMEarphoneSDK.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "FMEarphoneSDK/Classes/**/*"
+}

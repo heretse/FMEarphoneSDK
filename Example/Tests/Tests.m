@@ -8,6 +8,8 @@
 
 @import XCTest;
 
+@import Quick;
+
 @interface Tests : XCTestCase
 
 @end

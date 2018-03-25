@@ -1,0 +1,6 @@
+framework module Pods_FMEarphoneSDK_Tests {
+  umbrella header "Pods-FMEarphoneSDK_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

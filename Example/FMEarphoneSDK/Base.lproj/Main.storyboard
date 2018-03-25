@@ -1,27 +1,187 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="whP-gf-Uak">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AuC-30-9CL">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment version="4096" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Helvetica.ttc">
+            <string>Helvetica-Bold</string>
+        </array>
+    </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--FM-->
         <scene sceneID="wQg-tq-qST">
             <objects>
-                <viewController id="whP-gf-Uak" customClass="BlkdViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="uEw-UM-LJ8"/>
-                        <viewControllerLayoutGuide type="bottom" id="Mvr-aV-6Um"/>
-                    </layoutGuides>
+                <viewController id="whP-gf-Uak" customClass="RootViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TpU-gO-2f1">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fzx-wb-Sdn">
+                                <rect key="frame" x="152" y="30" width="70" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="6ep-4O-20C"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                <state key="normal" title="Power Up">
+                                    <color key="titleShadowColor" red="0.42467421290000001" green="0.4246615171" blue="0.4246686697" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnPowerOnPressed:" destination="whP-gf-Uak" eventType="touchUpInside" id="fSL-gs-fci"/>
+                                </connections>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eQo-A9-ROJ">
+                                <rect key="frame" x="0.0" y="82" width="375" height="44"/>
+                                <subviews>
+                                    <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LkH-V7-WYS">
+                                        <rect key="frame" x="0.0" y="0.0" width="125" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="125" id="PpY-Al-6yY"/>
+                                            <constraint firstAttribute="height" constant="44" id="fCb-03-3BR"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                        <state key="normal" title="&lt; Seek Down">
+                                            <color key="titleShadowColor" red="0.42467421290000001" green="0.4246615171" blue="0.4246686697" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnSeekDownPressed:" destination="whP-gf-Uak" eventType="touchUpInside" id="ZxL-CX-9QK"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HeX-ZN-TQW">
+                                        <rect key="frame" x="125" y="0.0" width="125" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="125" id="zjO-S2-PGs"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3wg-eW-WX1">
+                                        <rect key="frame" x="250" y="0.0" width="125" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="30a-aJ-r0w"/>
+                                            <constraint firstAttribute="width" constant="125" id="RCQ-YD-H5C"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                        <state key="normal" title="Seek Up &gt;">
+                                            <color key="titleShadowColor" red="0.42467421290000001" green="0.4246615171" blue="0.4246686697" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnSeekUpPressed:" destination="whP-gf-Uak" eventType="touchUpInside" id="OrM-Wn-BH1"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="f6z-RP-lGG"/>
+                                </constraints>
+                            </stackView>
+                            <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xqX-cJ-wJ5">
+                                <rect key="frame" x="141.5" y="126" width="91" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="PWV-5c-ggX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                <state key="normal" title="Power Down">
+                                    <color key="titleShadowColor" red="0.42467421290000001" green="0.4246615171" blue="0.4246686697" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnPowerOffPressed:" destination="whP-gf-Uak" eventType="touchUpInside" id="GRA-7L-YR7"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Bytes Received from Session: 0" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="hMw-63-vNT">
+                                <rect key="frame" x="67" y="200" width="241" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="NxK-sf-k3x">
+                                <rect key="frame" x="25" y="235.5" width="325" height="150"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="4GE-1G-Bwn"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="fzx-wb-Sdn" firstAttribute="top" secondItem="YCp-6z-upD" secondAttribute="top" constant="10" id="5Lx-aq-HSn"/>
+                            <constraint firstItem="hMw-63-vNT" firstAttribute="centerX" secondItem="YCp-6z-upD" secondAttribute="centerX" id="8wb-B8-G5R"/>
+                            <constraint firstItem="eQo-A9-ROJ" firstAttribute="width" secondItem="TpU-gO-2f1" secondAttribute="width" id="OtD-J4-qrB"/>
+                            <constraint firstItem="xqX-cJ-wJ5" firstAttribute="centerX" secondItem="YCp-6z-upD" secondAttribute="centerX" id="QTf-gc-pEp"/>
+                            <constraint firstItem="NxK-sf-k3x" firstAttribute="centerX" secondItem="YCp-6z-upD" secondAttribute="centerX" id="Wpk-IL-Cvf"/>
+                            <constraint firstItem="eQo-A9-ROJ" firstAttribute="top" secondItem="fzx-wb-Sdn" secondAttribute="bottom" constant="8" id="bxJ-UB-Gup"/>
+                            <constraint firstItem="hMw-63-vNT" firstAttribute="top" secondItem="xqX-cJ-wJ5" secondAttribute="bottom" constant="30" id="cOl-ha-bDH"/>
+                            <constraint firstItem="eQo-A9-ROJ" firstAttribute="centerX" secondItem="YCp-6z-upD" secondAttribute="centerX" id="dnn-Pv-f25"/>
+                            <constraint firstItem="fzx-wb-Sdn" firstAttribute="centerX" secondItem="YCp-6z-upD" secondAttribute="centerX" id="eSZ-O5-ziM"/>
+                            <constraint firstItem="xqX-cJ-wJ5" firstAttribute="top" secondItem="eQo-A9-ROJ" secondAttribute="bottom" id="ksy-Sf-Y8U"/>
+                            <constraint firstItem="NxK-sf-k3x" firstAttribute="top" secondItem="hMw-63-vNT" secondAttribute="bottom" constant="15" id="oCq-qI-dJI"/>
+                            <constraint firstItem="YCp-6z-upD" firstAttribute="trailing" secondItem="NxK-sf-k3x" secondAttribute="trailing" constant="25" id="rTh-Q4-EAo"/>
+                            <constraint firstItem="NxK-sf-k3x" firstAttribute="leading" secondItem="YCp-6z-upD" secondAttribute="leading" constant="25" id="ref-6f-iU5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="YCp-6z-upD"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="FM" image="fm_tuner" id="DTs-wA-CIk"/>
+                    <connections>
+                        <outlet property="channelLabel" destination="HeX-ZN-TQW" id="Na7-WX-kTV"/>
+                        <outlet property="powerDownButton" destination="xqX-cJ-wJ5" id="Z45-OI-XXX"/>
+                        <outlet property="powerUpButton" destination="fzx-wb-Sdn" id="ofq-eb-ztq"/>
+                        <outlet property="receivedBytesCountLabel" destination="hMw-63-vNT" id="VoL-jD-zAT"/>
+                        <outlet property="receivedBytesTextView" destination="NxK-sf-k3x" id="S3h-tU-RTM"/>
+                        <outlet property="seekBackwardButton" destination="LkH-V7-WYS" id="PJ0-W2-Ffb"/>
+                        <outlet property="seekForwardButton" destination="3wg-eW-WX1" id="XAY-dm-K50"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tc2-Qw-aMS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="305" y="433"/>
+            <point key="canvasLocation" x="822" y="431"/>
+        </scene>
+        <!--EQ-->
+        <scene sceneID="gke-I6-yy3">
+            <objects>
+                <viewController id="zwy-l0-bx4" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Xqp-Gi-ogk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Nvd-Le-yKc"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="EQ" image="equalizer" id="LB3-MC-Uv6"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kH5-nS-jx0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="822" y="1162"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="AiS-sQ-jMc">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="AuC-30-9CL" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="1rZ-9I-4Pr">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="whP-gf-Uak" kind="relationship" relationship="viewControllers" id="TT1-mf-qa1"/>
+                        <segue destination="zwy-l0-bx4" kind="relationship" relationship="viewControllers" id="iOz-vL-z0c"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GPH-JJ-us0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4.7999999999999998" y="431.78410794602701"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="equalizer" width="20" height="20"/>
+        <image name="fm_tuner" width="20" height="20"/>
+    </resources>
 </document>

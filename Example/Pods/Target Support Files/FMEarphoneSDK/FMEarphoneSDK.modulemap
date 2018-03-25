@@ -1,0 +1,6 @@
+framework module FMEarphoneSDK {
+  umbrella header "FMEarphoneSDK-umbrella.h"
+
+  export *
+  module * { export * }
+}
