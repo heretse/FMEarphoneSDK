@@ -24,7 +24,7 @@ TODO: Add long description of the pod here.
   s.homepage         = 'https://github.com/heretse/FMEarphoneSDK'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'heretse@gmail.com' }
+  s.author           = { 'heretse@gmail.com' => 'winston_hsieh@gemteks.com' }
   s.source           = { :git => 'https://github.com/heretse/FMEarphoneSDK.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
