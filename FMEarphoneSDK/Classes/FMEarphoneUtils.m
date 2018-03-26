@@ -109,10 +109,10 @@ NSString *kFMEarphoneChangedNotification = @"kFMEarphoneChangedNotification";
     [buffArray addObject:disableData];
     [buffArray addObjectsFromArray:eqDataArray];
     [buffArray addObject:enableData];
-    
+    /*
     NSMutableArray *bufferDataArray = [[NSMutableArray alloc] initWithArray:buffArray];
     NSMutableData *data0 = [bufferDataArray objectAtIndex:0];
-    /*
+    
     [[EAManager sharedController] ECSendRawData:_device protocol:_protocol data:data0 commandType:CommandSetEQ curDataIndex:0 allDataCount:_bufferDataArray.count];*/
 }
 
