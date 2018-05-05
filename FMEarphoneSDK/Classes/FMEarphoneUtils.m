@@ -23,7 +23,7 @@
     BOOL isRunning;
 }
 
-NSString *kFMEarphoneChangedNotification = @"kFMEarphoneChangedNotification";
+NSString *kFMEarphoneStatusChangedNotification = @"kFMEarphoneStatusChangedNotification";
 
 - (id)initWithEADSessionController:(EADSessionController *)_eadSessionController andEarphoneStatus:(FMEarphoneStatus *)_status {
     self = [super init];
@@ -55,7 +55,14 @@ NSString *kFMEarphoneChangedNotification = @"kFMEarphoneChangedNotification";
         commandType = [newCmd commandType];
         bufferDataArray = [newCmd bufferDataArray];
         currentIndex = 0;
-        [eadSessionController writeData:[bufferDataArray objectAtIndex:currentIndex]];
+        
+        FMEarphoneUtils* __weak weakSelf = self;
+        dispatch_async(dispatch_get_global_queue(0, DISPATCH_QUEUE_PRIORITY_HIGH), ^{
+            FMEarphoneUtils* strongSelf = weakSelf;
+            if (strongSelf) {
+                [strongSelf->eadSessionController writeData:[strongSelf->bufferDataArray objectAtIndex:strongSelf->currentIndex]];
+            }
+        });
     }
 }
 
@@ -91,7 +98,7 @@ NSString *kFMEarphoneChangedNotification = @"kFMEarphoneChangedNotification";
  */
 
 - (void)setEQ:(double)fGain
-       withBand:(NSInteger)band {
+     withBand:(NSInteger)band {
     
     Byte bytesDisable[5], bytesEnable[5];
     bytesDisable[0] = bytesEnable[0] = 0xcd;
@@ -100,6 +107,7 @@ NSString *kFMEarphoneChangedNotification = @"kFMEarphoneChangedNotification";
     bytesDisable[3] = bytesEnable[3] = 0x01;
     bytesDisable[4] = 0x00;
     bytesEnable[4] = 0x0e;
+    
     NSMutableData *disableData = [NSMutableData dataWithBytes:bytesDisable length:5];
     NSMutableData *enableData = [NSMutableData dataWithBytes:bytesEnable length:5];
     
@@ -109,11 +117,12 @@ NSString *kFMEarphoneChangedNotification = @"kFMEarphoneChangedNotification";
     [buffArray addObject:disableData];
     [buffArray addObjectsFromArray:eqDataArray];
     [buffArray addObject:enableData];
-    /*
-    NSMutableArray *bufferDataArray = [[NSMutableArray alloc] initWithArray:buffArray];
-    NSMutableData *data0 = [bufferDataArray objectAtIndex:0];
     
-    [[EAManager sharedController] ECSendRawData:_device protocol:_protocol data:data0 commandType:CommandSetEQ curDataIndex:0 allDataCount:_bufferDataArray.count];*/
+    FMEarphoneCommand *newCmd = [FMEarphoneCommand new];
+    [newCmd setCommandType:CommandSetEQ];
+    [newCmd setBufferDataArray:buffArray];
+    
+    [self executeCommand:newCmd];
 }
 
 /*! @brief 设置EQ是否开启
@@ -204,7 +213,7 @@ NSString *kFMEarphoneChangedNotification = @"kFMEarphoneChangedNotification";
 }
 
 /*
- * @brief Get current sound effect status
+ * @brief Get Current Status of Sound Effect
  */
 - (void)getSoundEffectStatus {
     
@@ -224,7 +233,7 @@ NSString *kFMEarphoneChangedNotification = @"kFMEarphoneChangedNotification";
 }
 
 /*
- * @brief 根据场景模式设置EQ
+ * @brief Set EQ by Scene
  * @param sceneType 枚举型
  */
 - (void)setSceneByType:(SceneType)sceneType {
@@ -289,28 +298,29 @@ NSString *kFMEarphoneChangedNotification = @"kFMEarphoneChangedNotification";
     
     //07 06 02 00(0xc7) enable bass and treble
     //10(0x39) enable 3D
-    Byte bytes0[5],bytes1[5],bytes2[5],byte3[5];
-    bytes0[0] = bytes1[0] = bytes2[0] = byte3[0] = 0xcd;
-    bytes0[1] = bytes1[1] = bytes2[1] = byte3[1] = 0xdc;
+    Byte bytes0[5],bytes1[5],bytes2[5],bytes3[5];
+    bytes0[0] = bytes1[0] = bytes2[0] = bytes3[0] = 0xcd;
+    bytes0[1] = bytes1[1] = bytes2[1] = bytes3[1] = 0xdc;
     bytes0[2] = bytes1[2] = bytes2[2] = 0xc7;
-    bytes0[3] = bytes1[3] = bytes2[3] = byte3[3] = 0x01;
-    byte3[2] = 0x39;
-    if (enable == YES) {
+    bytes0[3] = bytes1[3] = bytes2[3] = bytes3[3] = 0x01;
+    bytes3[2] = 0x39;
+    
+    if (enable) {
         bytes0[4] = 0x02;
         bytes1[4] = 0x06;
         bytes2[4] = 0x07;
-        byte3[4] = 0x10;
+        bytes3[4] = 0x10;
     } else {
         bytes0[4] = 0x06;
         bytes1[4] = 0x02;
         bytes2[4] = 0x00;
-        byte3[4] = 0x00;
+        bytes3[4] = 0x00;
     }
     
     NSMutableData *data0 = [NSMutableData dataWithBytes:bytes0 length:5];
     NSMutableData *data1 = [NSMutableData dataWithBytes:bytes1 length:5];
     NSMutableData *data2 = [NSMutableData dataWithBytes:bytes2 length:5];
-    NSMutableData *data3 = [NSMutableData dataWithBytes:byte3 length:5];
+    NSMutableData *data3 = [NSMutableData dataWithBytes:bytes3 length:5];
     
     NSMutableArray *bufferDataArray = [NSMutableArray new];
     [bufferDataArray addObject:data0];
@@ -318,10 +328,11 @@ NSString *kFMEarphoneChangedNotification = @"kFMEarphoneChangedNotification";
     [bufferDataArray addObject:data2];
     [bufferDataArray addObject:data3];
     
-    /*
-    _writeCount = 0;
-    [[EAManager sharedController] ECSendRawData:_device protocol:_protocol data:data0 commandType:CommandSetSoundEffectStatus curDataIndex:0 allDataCount:_bufferDataArray.count];
-     */
+    FMEarphoneCommand *newCmd = [FMEarphoneCommand new];
+    [newCmd setCommandType:CommandSetSoundEffectStatus];
+    [newCmd setBufferDataArray:bufferDataArray];
+    
+    [self executeCommand:newCmd];
 }
 
 
@@ -329,13 +340,13 @@ NSString *kFMEarphoneChangedNotification = @"kFMEarphoneChangedNotification";
  * @brief 设置音效增强
  * @param effectMode 枚举型，音效增强模式 SoundEffectBass-低音, SoundEffectTreble-高音, SoundEffect3D-环绕音
  */
-/*
 - (void)ESSetSoundEffect:(SoundEffectMode)effectMode
-               withValue:(float)value{
+               withValue:(float)value {
     NSLog(@"set SE with mode:%d, value:%f", effectMode, value);
     
     switch (effectMode) {
-        case SoundEffectBass: {
+        case ModeBass: {
+            
             int  makeupgain = (int)(value/1.5);
             Byte byteValue = (Byte)(makeupgain & 0xff);
             Byte byts[5];
@@ -344,14 +355,43 @@ NSString *kFMEarphoneChangedNotification = @"kFMEarphoneChangedNotification";
             byts[2] = 0xc9;
             byts[3] = 0x01;
             byts[4] = byteValue;
-            _bufferDataArray = [NSMutableArray new];
-            NSMutableData *data0 = [NSMutableData dataWithBytes:byts length:5];
-            _writeCount = 0;
-            [[EAManager sharedController] ECSendRawData:_device protocol:_protocol data:data0 commandType:CommandSetSoundEffect curDataIndex:0 allDataCount:1];
+            
+            NSMutableArray *bufferDataArray = [NSMutableArray new];
+            NSMutableData *data = [NSMutableData dataWithBytes:byts length:5];
+            [bufferDataArray addObject:data];
+            
+            FMEarphoneCommand *newCmd = [FMEarphoneCommand new];
+            [newCmd setCommandType:CommandSetSoundEffect];
+            [newCmd setBufferDataArray:bufferDataArray];
+            
+            [self executeCommand:newCmd];
         }
             break;
+        
+        case ModeVocal: {
             
-        case SoundEffectTreble: {
+            int  makeupgain = (int)(value/1.5);
+            Byte byteValue = (Byte)(makeupgain & 0xff);
+            Byte bytes[5];
+            bytes[0] = 0xcd;
+            bytes[1] = 0xdc;
+            bytes[2] = 0xd0;
+            bytes[3] = 0x01;
+            bytes[4] = byteValue;
+            
+            NSMutableArray *bufferDataArray = [NSMutableArray new];
+            NSMutableData *data = [NSMutableData dataWithBytes:bytes length:5];
+            [bufferDataArray addObject:data];
+            
+            FMEarphoneCommand *newCmd = [FMEarphoneCommand new];
+            [newCmd setCommandType:CommandSetSoundEffect];
+            [newCmd setBufferDataArray:bufferDataArray];
+            
+            [self executeCommand:newCmd];
+        }
+        break;
+            
+        case ModeTreble: {
             int  makeupgain = (int)(value/1.5);
             Byte byteValue = (Byte)(makeupgain & 0xff);
             Byte byts[5];
@@ -360,15 +400,20 @@ NSString *kFMEarphoneChangedNotification = @"kFMEarphoneChangedNotification";
             byts[2] = 0xd7;
             byts[3] = 0x01;
             byts[4] = byteValue;
-            _bufferDataArray = [NSMutableArray new];
-            NSMutableData *data0 = [NSMutableData dataWithBytes:byts length:5];
-            [_bufferDataArray addObject:data0];
-            _writeCount = 0;
-            [[EAManager sharedController] ECSendRawData:_device protocol:_protocol data:data0 commandType:CommandSetSoundEffect curDataIndex:0 allDataCount:1];
+            
+            NSMutableArray *bufferDataArray = [NSMutableArray new];
+            NSMutableData *data = [NSMutableData dataWithBytes:byts length:5];
+            [bufferDataArray addObject:data];
+            
+            FMEarphoneCommand *newCmd = [FMEarphoneCommand new];
+            [newCmd setCommandType:CommandSetSoundEffect];
+            [newCmd setBufferDataArray:bufferDataArray];
+            
+            [self executeCommand:newCmd];
         }
             break;
             
-        case SoundEffect3D: {
+        case Mode3D: {
             Byte byts[5];
             byts[0] = 0xcd;
             byts[1] = 0xdc;
@@ -393,12 +438,17 @@ NSString *kFMEarphoneChangedNotification = @"kFMEarphoneChangedNotification";
             bytes[5] = BMid;
             bytes[6] = BHi;
             
-            NSMutableData *data = [NSMutableData dataWithBytes:bytes length:7];
-            _bufferDataArray = [NSMutableArray new];
-            [_bufferDataArray addObject:data0];
-            [_bufferDataArray addObject:data];
-            _writeCount = 0;
-            [[EAManager sharedController] ECSendRawData:_device protocol:_protocol data:data0 commandType:CommandSetSoundEffect curDataIndex:0 allDataCount:_bufferDataArray.count];
+            NSMutableData *data1 = [NSMutableData dataWithBytes:bytes length:7];
+            
+            NSMutableArray *bufferDataArray = [NSMutableArray new];
+            [bufferDataArray addObject:data0];
+            [bufferDataArray addObject:data1];
+            
+            FMEarphoneCommand *newCmd = [FMEarphoneCommand new];
+            [newCmd setCommandType:CommandSetSoundEffect];
+            [newCmd setBufferDataArray:bufferDataArray];
+            
+            [self executeCommand:newCmd];
         }
             break;
             
@@ -406,7 +456,7 @@ NSString *kFMEarphoneChangedNotification = @"kFMEarphoneChangedNotification";
             break;
     }
 }
-*/
+
 /*
  * @brief 重置音效增强
  */
@@ -453,16 +503,19 @@ NSString *kFMEarphoneChangedNotification = @"kFMEarphoneChangedNotification";
     bytes[4] = BLow;
     bytes[5] = BMid;
     bytes[6] = BHi;
-    NSMutableData *data = [NSMutableData dataWithBytes:bytes length:7];
+    NSMutableData *data1 = [NSMutableData dataWithBytes:bytes length:7];
     
     NSMutableArray *bufferDataArray = [NSMutableArray new];
     [bufferDataArray addObject:bassData];
     [bufferDataArray addObject:trebleData];
     [bufferDataArray addObject:data0];
-    [bufferDataArray addObject:data];
-    /*
-    [[EAManager sharedController] ECSendRawData:_device protocol:_protocol data:bassData commandType:CommandResetSoundEffect curDataIndex:0 allDataCount:_bufferDataArray.count];
-     */
+    [bufferDataArray addObject:data1];
+    
+    FMEarphoneCommand *newCmd = [FMEarphoneCommand new];
+    [newCmd setCommandType:CommandResetSoundEffect];
+    [newCmd setBufferDataArray:bufferDataArray];
+    
+    [self executeCommand:newCmd];
 }
 
 #pragma mark - FM related command
@@ -714,10 +767,10 @@ NSString *kFMEarphoneChangedNotification = @"kFMEarphoneChangedNotification";
 }
 
 - (void)setFMTuneDefaultFreq {
-    [self setFMTuneFreq:(UTF16Char)[fmStatus currentFrequency]];
+    [self setFMTuneFreq:(UTF16Char)[fmStatus currentFrequency] byUsingCommand:NO];
 }
 
-- (void)setFMTuneFreq:(UTF16Char)frequency {
+- (void)setFMTuneFreq:(UTF16Char)frequency byUsingCommand:(BOOL)usingCommand {
     Byte cmd[10];
     cmd[0] = 0xfe;
     cmd[1] = 0xed;
@@ -731,7 +784,17 @@ NSString *kFMEarphoneChangedNotification = @"kFMEarphoneChangedNotification";
     
     NSMutableData *data = [NSMutableData dataWithBytes:cmd length:9];
     
-    [self sendRawData:data withCommandType:CommandSetFMTuneFreq];
+    if (usingCommand) {
+        
+        FMEarphoneCommand *newCmd = [FMEarphoneCommand new];
+        [newCmd setCommandType:CommandSetFMTuneFreq];
+        [newCmd setBufferDataArray:@[data]];
+        
+        [self executeCommand:newCmd];
+    } else {
+        [self sendRawData:data withCommandType:CommandSetFMTuneFreq];
+    }
+    
 }
 
 /*
@@ -848,8 +911,23 @@ NSString *kFMEarphoneChangedNotification = @"kFMEarphoneChangedNotification";
 #pragma mark - EADSessionDelegate
 
 - (void)sessionOpenCompleted {
+    NSLog(@"Session Open Completed");
     [self getDeviceInfo];
+    [self getEQStatus];
+    [self getSoundEffectStatus];
     [self getFMRsqStatus:0x00];
+}
+
+- (void)sessionForceClosed {
+    NSLog(@"Session Force Closed");
+    
+    @synchronized(cmdQueue) {
+        [cmdQueue removeAllObjects];
+    }
+    
+    [fmStatus reset];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kFMEarphoneStatusChangedNotification object:nil userInfo:nil];
 }
 
 - (void)sessionDataReceived:(NSData *)data {
@@ -859,11 +937,6 @@ NSString *kFMEarphoneChangedNotification = @"kFMEarphoneChangedNotification";
     Byte byte5 = '\0';
     if ([data length] >= 5) {
         byte5 = ((Byte*)([data bytes]))[4];
-    }
-    
-    if (CommandSetFMPowerUpRead == commandType) {
-        NSLog(@"CommandSetFMPowerUpRead byte4: %@", data);
-        //NSLog(@"CommandSetFMPowerUpRead byte4: %hhu", byte5);
     }
     
     if (byte5 == 0x80 || byte5 == 0x81 || byte5 == 0x85) {
@@ -914,7 +987,7 @@ NSString *kFMEarphoneChangedNotification = @"kFMEarphoneChangedNotification";
                 if (byte5 == 0x81) {
                     [self getFMTuneStatus];
                     [fmStatus setIsPlaying:YES];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kFMEarphoneChangedNotification object:nil userInfo:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kFMEarphoneStatusChangedNotification object:nil userInfo:nil];
                 } else {
                     [self getFMIntStatus];
                 }
@@ -933,7 +1006,7 @@ NSString *kFMEarphoneChangedNotification = @"kFMEarphoneChangedNotification";
                     [fmStatus setIsPlaying:YES];
                     [fmStatus setCurrentFrequency:frequency];
                     NSLog(@"%@", [NSString stringWithFormat:@"%d", frequency]);
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kFMEarphoneChangedNotification object:nil userInfo:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kFMEarphoneStatusChangedNotification object:nil userInfo:nil];
                 }
             }
                 break;
@@ -1036,7 +1109,7 @@ NSString *kFMEarphoneChangedNotification = @"kFMEarphoneChangedNotification";
                 NSLog(@"CommandSetFMPowerDown completed.");
                 isRunning = NO;
                 [fmStatus setIsPlaying:NO];
-                [[NSNotificationCenter defaultCenter] postNotificationName:kFMEarphoneChangedNotification object:nil userInfo:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kFMEarphoneStatusChangedNotification object:nil userInfo:nil];
             }
                 break;
             case CommandGetFMRsqStatus: {
@@ -1045,13 +1118,25 @@ NSString *kFMEarphoneChangedNotification = @"kFMEarphoneChangedNotification";
             }
                 break;
                 
-            case CommandGetDeviceInfo:
+            case CommandGetDeviceInfo: {
+            
                 isRunning = NO;
                 
+            }
                 break;
             
-            case CommandGetEQStatus:
-                
+            case CommandGetEQStatus: {
+            
+                if (byte5 == 0x0e) {
+                    [fmStatus setIsEQEnabled:YES];
+                } else {
+                    [fmStatus setIsEQEnabled:NO];
+                }
+            
+                isRunning = NO;
+            
+                [[NSNotificationCenter defaultCenter] postNotificationName:kFMEarphoneStatusChangedNotification object:nil userInfo:nil];
+            }
                 break;
                 
             case CommandSetEQ:
@@ -1068,12 +1153,28 @@ NSString *kFMEarphoneChangedNotification = @"kFMEarphoneChangedNotification";
             case CommandGetSoundEffectStatus:
                 
                 break;
+            
+            case CommandSetSoundEffect: {
+            
+                if (byte5 == 0x10) {
+                    [fmStatus setIsSoundEffectEnabled:YES];
+                } else {
+                    [fmStatus setIsSoundEffectEnabled:NO];
+                }
+                
+                isRunning = NO;
+            
+                [[NSNotificationCenter defaultCenter] postNotificationName:kFMEarphoneStatusChangedNotification object:nil userInfo:nil];
+            }
+                break;
                 
             default:
                 break;
         }
     } else {
         isRunning = NO;
+        
+        //TODO: Implement resend command
     }
     
     [self checkHasCommandInQueue];

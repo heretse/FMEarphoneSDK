@@ -11,7 +11,7 @@
 #import "EqCalculate.h"
 #import "FMEarphoneStatus.h"
 
-extern NSString *kFMEarphoneChangedNotification;
+extern NSString *kFMEarphoneStatusChangedNotification;
 
 @interface FMEarphoneUtils : NSObject <EADSessionDelegate>
 
@@ -23,6 +23,7 @@ extern NSString *kFMEarphoneChangedNotification;
 - (void)doDinControlHigh;
 - (void)doDinControlLow;
 - (void)setFMSeekStart:(Byte)seekUp wrap:(Byte)wrap;
+- (void)setFMTuneFreq:(UTF16Char)frequency byUsingCommand:(BOOL)usingCommand;
 
 #pragma mark - EQ related commands
 - (void)getEQStatus;

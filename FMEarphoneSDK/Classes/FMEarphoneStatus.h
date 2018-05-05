@@ -11,5 +11,9 @@
 
 @property (nonatomic) BOOL isPlaying;
 @property (nonatomic) int  currentFrequency;
-
+@property (nonatomic) BOOL isEQEnabled;
+@property (nonatomic) BOOL isSoundEffectEnabled;
+    
+- (void)reset;
+    
 @end

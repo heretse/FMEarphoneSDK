@@ -8,7 +8,7 @@
 
 @import UIKit;
 
-@interface RootViewController : UIViewController
+@interface RootViewController : UIViewController <UITextFieldDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UIButton *powerUpButton;
@@ -16,6 +16,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *seekForwardButton;
 @property (weak, nonatomic) IBOutlet UIButton *seekBackwardButton;
 @property (weak, nonatomic) IBOutlet UILabel *channelLabel;
+@property (weak, nonatomic) IBOutlet UITextField *inputFreqTextField;
+@property (weak, nonatomic) IBOutlet UIButton *tuneFreqButton;
 @property(nonatomic) uint32_t totalBytesRead;
 @property(nonatomic, strong) IBOutlet UILabel *receivedBytesCountLabel;
 @property (weak, nonatomic) IBOutlet UITextView *receivedBytesTextView;

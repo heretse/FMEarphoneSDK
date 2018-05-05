@@ -130,7 +130,9 @@
 }
 
 - (void)setFrequency:(int)frequency {
-    
+    if (_selectedAccessory != nil) {
+        [efUtils setFMTuneFreq:(UTF16Char)frequency byUsingCommand:YES];
+    }
 }
 
 - (void)getDeviceInfo {

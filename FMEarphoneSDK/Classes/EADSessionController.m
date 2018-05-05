@@ -117,6 +117,7 @@ NSString *EADSessionDataReceivedNotification = @"EADSessionDataReceivedNotificat
     [[_session inputStream] close];
     [[_session inputStream] removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     [[_session inputStream] setDelegate:nil];
+    
     [[_session outputStream] close];
     [[_session outputStream] removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     [[_session outputStream] setDelegate:nil];
@@ -159,12 +160,15 @@ NSString *EADSessionDataReceivedNotification = @"EADSessionDataReceivedNotificat
 #pragma mark EAAccessoryDelegate
 - (void)accessoryDidDisconnect:(EAAccessory *)accessory
 {
-    // do something ...
+    if (_delegate) {
+        [_delegate sessionForceClosed];
+    }
 }
 
 #pragma mark NSStreamDelegateEventExtensions
 
 // asynchronous NSStream handleEvent method
+
 - (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode
 {
     switch (eventCode) {
@@ -182,8 +186,12 @@ NSString *EADSessionDataReceivedNotification = @"EADSessionDataReceivedNotificat
             [self _writeData];
             break;
         case NSStreamEventErrorOccurred:
-            break;
         case NSStreamEventEndEncountered:
+            [self closeSession];
+            
+            if (_delegate) {
+                [_delegate sessionForceClosed];
+            }
             break;
         default:
             break;

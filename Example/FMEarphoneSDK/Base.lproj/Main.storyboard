@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AuC-30-9CL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AuC-30-9CL">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment version="4096" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="Helvetica.ttc">
-            <string>Helvetica-Bold</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--FM-->
         <scene sceneID="wQg-tq-qST">
@@ -24,12 +19,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fzx-wb-Sdn">
-                                <rect key="frame" x="152" y="30" width="70" height="44"/>
+                                <rect key="frame" x="127" y="52" width="120" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="6ep-4O-20C"/>
+                                    <constraint firstAttribute="height" constant="30" id="6ep-4O-20C"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                                <state key="normal" title="Power Up">
+                                <state key="normal" title="Power Up" backgroundImage="btn_orange">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="titleShadowColor" red="0.42467421290000001" green="0.4246615171" blue="0.4246686697" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -37,16 +33,17 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eQo-A9-ROJ">
-                                <rect key="frame" x="0.0" y="82" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="90" width="375" height="30"/>
                                 <subviews>
                                     <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LkH-V7-WYS">
-                                        <rect key="frame" x="0.0" y="0.0" width="125" height="44"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="120" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="125" id="PpY-Al-6yY"/>
-                                            <constraint firstAttribute="height" constant="44" id="fCb-03-3BR"/>
+                                            <constraint firstAttribute="height" constant="30" id="fCb-03-3BR"/>
+                                            <constraint firstAttribute="width" constant="120" id="lPe-yU-x3P"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                                        <state key="normal" title="&lt; Seek Down">
+                                        <state key="normal" title="&lt; Seek Down" backgroundImage="btn_orange">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="titleShadowColor" red="0.42467421290000001" green="0.4246615171" blue="0.4246686697" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
@@ -54,22 +51,32 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HeX-ZN-TQW">
-                                        <rect key="frame" x="125" y="0.0" width="125" height="44"/>
+                                        <rect key="frame" x="120" y="0.0" width="135" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="125" id="zjO-S2-PGs"/>
+                                            <constraint firstAttribute="width" constant="135" id="Jc2-ME-pQZ"/>
+                                            <constraint firstAttribute="height" constant="30" id="mgd-yc-iqr"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="6"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </label>
                                     <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3wg-eW-WX1">
-                                        <rect key="frame" x="250" y="0.0" width="125" height="44"/>
+                                        <rect key="frame" x="255" y="0.0" width="120" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="30a-aJ-r0w"/>
-                                            <constraint firstAttribute="width" constant="125" id="RCQ-YD-H5C"/>
+                                            <constraint firstAttribute="height" constant="30" id="30a-aJ-r0w"/>
+                                            <constraint firstAttribute="width" constant="120" id="L4z-P6-Rdw"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                                        <state key="normal" title="Seek Up &gt;">
+                                        <state key="normal" title="Seek Up &gt;" backgroundImage="btn_orange">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="titleShadowColor" red="0.42467421290000001" green="0.4246615171" blue="0.4246686697" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
@@ -78,16 +85,17 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="f6z-RP-lGG"/>
+                                    <constraint firstAttribute="height" constant="30" id="f6z-RP-lGG"/>
                                 </constraints>
                             </stackView>
                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xqX-cJ-wJ5">
-                                <rect key="frame" x="141.5" y="126" width="91" height="44"/>
+                                <rect key="frame" x="127" y="128" width="120" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="PWV-5c-ggX"/>
+                                    <constraint firstAttribute="height" constant="30" id="PWV-5c-ggX"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                                <state key="normal" title="Power Down">
+                                <state key="normal" title="Power Down" backgroundImage="btn_orange">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="titleShadowColor" red="0.42467421290000001" green="0.4246615171" blue="0.4246686697" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -95,48 +103,81 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Bytes Received from Session: 0" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="hMw-63-vNT">
-                                <rect key="frame" x="67" y="200" width="241" height="20.5"/>
+                                <rect key="frame" x="67" y="299" width="241" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="NxK-sf-k3x">
-                                <rect key="frame" x="25" y="235.5" width="325" height="150"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="NxK-sf-k3x">
+                                <rect key="frame" x="25" y="334.5" width="325" height="150"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="4GE-1G-Bwn"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </textView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="76.0" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="by5-UO-k39">
+                                <rect key="frame" x="150" y="193" width="75" height="33"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="75" id="DcI-RA-Sol"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vfs-lb-CTw">
+                                <rect key="frame" x="97" y="244" width="180" height="40"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Tune Freq." backgroundImage="btn_confirm_n">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnTuneFreqPressed:" destination="whP-gf-Uak" eventType="touchUpInside" id="daS-Hm-19O"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="fzx-wb-Sdn" firstAttribute="top" secondItem="YCp-6z-upD" secondAttribute="top" constant="10" id="5Lx-aq-HSn"/>
+                            <constraint firstItem="hMw-63-vNT" firstAttribute="top" secondItem="Vfs-lb-CTw" secondAttribute="bottom" constant="15" id="4kG-S9-roI"/>
+                            <constraint firstItem="fzx-wb-Sdn" firstAttribute="top" secondItem="YCp-6z-upD" secondAttribute="top" constant="32" id="5Lx-aq-HSn"/>
                             <constraint firstItem="hMw-63-vNT" firstAttribute="centerX" secondItem="YCp-6z-upD" secondAttribute="centerX" id="8wb-B8-G5R"/>
+                            <constraint firstItem="by5-UO-k39" firstAttribute="top" secondItem="xqX-cJ-wJ5" secondAttribute="bottom" constant="35" id="FbM-U1-geJ"/>
                             <constraint firstItem="eQo-A9-ROJ" firstAttribute="width" secondItem="TpU-gO-2f1" secondAttribute="width" id="OtD-J4-qrB"/>
                             <constraint firstItem="xqX-cJ-wJ5" firstAttribute="centerX" secondItem="YCp-6z-upD" secondAttribute="centerX" id="QTf-gc-pEp"/>
                             <constraint firstItem="NxK-sf-k3x" firstAttribute="centerX" secondItem="YCp-6z-upD" secondAttribute="centerX" id="Wpk-IL-Cvf"/>
+                            <constraint firstItem="by5-UO-k39" firstAttribute="centerX" secondItem="YCp-6z-upD" secondAttribute="centerX" id="b7H-8d-WsS"/>
                             <constraint firstItem="eQo-A9-ROJ" firstAttribute="top" secondItem="fzx-wb-Sdn" secondAttribute="bottom" constant="8" id="bxJ-UB-Gup"/>
-                            <constraint firstItem="hMw-63-vNT" firstAttribute="top" secondItem="xqX-cJ-wJ5" secondAttribute="bottom" constant="30" id="cOl-ha-bDH"/>
                             <constraint firstItem="eQo-A9-ROJ" firstAttribute="centerX" secondItem="YCp-6z-upD" secondAttribute="centerX" id="dnn-Pv-f25"/>
                             <constraint firstItem="fzx-wb-Sdn" firstAttribute="centerX" secondItem="YCp-6z-upD" secondAttribute="centerX" id="eSZ-O5-ziM"/>
-                            <constraint firstItem="xqX-cJ-wJ5" firstAttribute="top" secondItem="eQo-A9-ROJ" secondAttribute="bottom" id="ksy-Sf-Y8U"/>
+                            <constraint firstItem="xqX-cJ-wJ5" firstAttribute="top" secondItem="eQo-A9-ROJ" secondAttribute="bottom" constant="8" id="ksy-Sf-Y8U"/>
                             <constraint firstItem="NxK-sf-k3x" firstAttribute="top" secondItem="hMw-63-vNT" secondAttribute="bottom" constant="15" id="oCq-qI-dJI"/>
+                            <constraint firstItem="Vfs-lb-CTw" firstAttribute="centerX" secondItem="YCp-6z-upD" secondAttribute="centerX" id="qBB-jj-aEy"/>
                             <constraint firstItem="YCp-6z-upD" firstAttribute="trailing" secondItem="NxK-sf-k3x" secondAttribute="trailing" constant="25" id="rTh-Q4-EAo"/>
                             <constraint firstItem="NxK-sf-k3x" firstAttribute="leading" secondItem="YCp-6z-upD" secondAttribute="leading" constant="25" id="ref-6f-iU5"/>
+                            <constraint firstItem="Vfs-lb-CTw" firstAttribute="top" secondItem="by5-UO-k39" secondAttribute="bottom" constant="18" id="uey-55-Qg7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YCp-6z-upD"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="FM" image="fm_tuner" id="DTs-wA-CIk"/>
                     <connections>
                         <outlet property="channelLabel" destination="HeX-ZN-TQW" id="Na7-WX-kTV"/>
+                        <outlet property="inputFreqTextField" destination="by5-UO-k39" id="JH1-4J-HJt"/>
                         <outlet property="powerDownButton" destination="xqX-cJ-wJ5" id="Z45-OI-XXX"/>
                         <outlet property="powerUpButton" destination="fzx-wb-Sdn" id="ofq-eb-ztq"/>
                         <outlet property="receivedBytesCountLabel" destination="hMw-63-vNT" id="VoL-jD-zAT"/>
                         <outlet property="receivedBytesTextView" destination="NxK-sf-k3x" id="S3h-tU-RTM"/>
                         <outlet property="seekBackwardButton" destination="LkH-V7-WYS" id="PJ0-W2-Ffb"/>
                         <outlet property="seekForwardButton" destination="3wg-eW-WX1" id="XAY-dm-K50"/>
+                        <outlet property="tuneFreqButton" destination="Vfs-lb-CTw" id="GZS-gW-J7P"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tc2-Qw-aMS" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -181,6 +222,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="btn_confirm_n" width="180" height="40"/>
+        <image name="btn_orange" width="120" height="30"/>
         <image name="equalizer" width="20" height="20"/>
         <image name="fm_tuner" width="20" height="20"/>
     </resources>

@@ -1,9 +1,9 @@
 {
   "name": "FMEarphoneSDK",
-  "version": "0.1.0",
-  "summary": "A short description of FMEarphoneSDK.",
-  "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/heretse@gmail.com/FMEarphoneSDK",
+  "version": "0.1.1",
+  "summary": "This a framework library to control FM functions with the Blackloud earbuds.",
+  "description": "FmEarphoneSDK is an iOS cocoapod library for controling the FM chip - Si4705 via EAP.",
+  "homepage": "https://github.com/heretse/FMEarphoneSDK",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/heretse/FMEarphoneSDK.git",
-    "tag": "0.1.0"
+    "tag": "0.1.1"
   },
   "platforms": {
     "ios": "8.0"

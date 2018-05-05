@@ -52,7 +52,6 @@ typedef enum {
     ret = [self ClipBand:ret];;
 
     return ret;
-
 }
 
 + (struct BiQuadCoeffs)ClipBand:(struct BiQuadCoeffs)curVal {
@@ -335,9 +334,9 @@ typedef enum {
             break;
     }
 
-    NSLog(@"eq - getCommandData gain=%f,freq=%f", fGain, fFreq);
+    NSLog(@"EqCalculate - getCommandData gain=%f,freq=%f", fGain, fFreq);
     struct BiQuadCoeffsInt coeffsInt = [EqCalculate calculateEQ:fGain frequency:fFreq];
-    NSLog(@"eq - coeffsInt B0=%zi,B1=%zi,B2=%zi,A1=%zi,A2=%zi", coeffsInt.B0, coeffsInt.B1, coeffsInt.B2, coeffsInt.A1, coeffsInt.A2);
+    NSLog(@"EqCalculate - coeffsInt B0=%i, B1=%i, B2=%i, A1=%i, A2=%i", coeffsInt.B0, coeffsInt.B1, coeffsInt.B2, coeffsInt.A1, coeffsInt.A2);
 
     Byte channel0 = [EqCalculate getStartAddressByBand:band AndChannel:EQ_CHANNEL_0];
     Byte channel1 = [EqCalculate getStartAddressByBand:band AndChannel:EQ_CHANNEL_1];

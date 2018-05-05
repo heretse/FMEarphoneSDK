@@ -40,12 +40,13 @@
         NSLog(@"Error: %@", [error description]);
     }
     
+    [self.inputFreqTextField setDelegate:self];
+    
     // watch for the accessory being disconnected
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accessoryDidConnect:) name:EAAccessoryDidConnectNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accessoryDidDisconnect:) name:EAAccessoryDidDisconnectNotification object:nil];
     [[EAAccessoryManager sharedAccessoryManager] registerForLocalNotifications];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fmStatusChanged:) name:kFMEarphoneChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fmStatusChanged:) name:kFMEarphoneStatusChangedNotification object:nil];
     
     // watch for received data from the accessory
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sessionDataReceived:) name:EADSessionDataReceivedNotification object:nil];
@@ -94,6 +95,13 @@
 
 - (IBAction)btnSeekDownPressed:(id)sender {
     [fmEarphoneSDK seekDown];
+}
+
+- (IBAction)btnTuneFreqPressed:(id)sender {
+    
+    int freq = [[[self.inputFreqTextField text] stringByReplacingOccurrencesOfString:@"." withString:@""] intValue];
+    
+    [fmEarphoneSDK setFrequency:freq];
 }
 
 - (void)accessoryDidConnect:(NSNotification *)notification
@@ -160,12 +168,15 @@
             [self.powerDownButton setEnabled:YES];
             [self.seekForwardButton setEnabled:YES];
             [self.seekBackwardButton setEnabled:YES];
+            [self.tuneFreqButton setEnabled:YES];
             
             if ([channleStr length] <= 4) {
                 [self.channelLabel setText:[NSString stringWithFormat:@"%@.%@", [channleStr substringWithRange:NSMakeRange(0, 2)], [channleStr substringWithRange:NSMakeRange(2, [channleStr length] - 2)]]];
             } else {
                 [self.channelLabel setText:[NSString stringWithFormat:@"%@.%@", [channleStr substringWithRange:NSMakeRange(0, 3)], [channleStr substringWithRange:NSMakeRange(3, [channleStr length] - 3)]]];
             }
+            
+            [self.inputFreqTextField setText:[self.channelLabel text]];
         });
         
         [audioPlayer play];
@@ -176,10 +187,20 @@
             [self.seekForwardButton setEnabled:NO];
             [self.seekBackwardButton setEnabled:NO];
             [self.channelLabel setText:@""];
+            
+            [self.inputFreqTextField setText:@""];
+            [self.tuneFreqButton setEnabled:NO];
         });
         
         [audioPlayer pause];
     }
+}
+
+#pragma mark - UITextField Delegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 
 @end

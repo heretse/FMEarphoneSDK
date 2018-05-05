@@ -18,6 +18,7 @@ extern NSString *EADSessionDataReceivedNotification;
 
 - (void)sessionOpenCompleted;
 - (void)sessionDataReceived:(NSData *)data;
+- (void)sessionForceClosed;
 
 @end
 

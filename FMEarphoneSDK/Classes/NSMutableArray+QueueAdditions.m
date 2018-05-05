@@ -5,6 +5,7 @@
 // Add to the tail of the queue
 - (void)enqueue:(id)anObject {
     // Push the item in
+    NSLog(@"Enqueue object: %@", anObject);
     [self addObject: anObject];
 }
 
@@ -26,6 +27,7 @@
     }
     
     // Pass back the dequeued object, if any
+    NSLog(@"Dequeue object: %@", queueObject);
     return queueObject;
 }
 

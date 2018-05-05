@@ -26,6 +26,15 @@ static NSString * const EqDefaultName = @"EqDefaultName";  //Equalizer Default N
 static NSString * const EqSetValueArr = @"EqSetValueArr" ; //Equalizer Setting Values均衡器设置值数组
 static NSString * const EqTypeIndex = @"EqTypeIndex"; //0-None, 1-Custom, 2-Default
 
+// Sound Effect Mode enumeration
+typedef enum {
+    ModeBass,
+    ModeVocal,
+    ModeTreble,
+    Mode3D
+    
+} SoundEffectMode;
+
 // Scene Type enumeration
 typedef enum {
     SceneTypeNone = 1,

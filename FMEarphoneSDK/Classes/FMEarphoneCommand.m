@@ -8,5 +8,9 @@
 #import "FMEarphoneCommand.h"
 
 @implementation FMEarphoneCommand
+    
+- (NSString *)description {
+    return [NSString stringWithFormat: @"Command Type: %ld", _commandType];
+}
 
 @end
