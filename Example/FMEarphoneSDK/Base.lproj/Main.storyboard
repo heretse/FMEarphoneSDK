@@ -199,7 +199,23 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kH5-nS-jx0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="822" y="1162"/>
+            <point key="canvasLocation" x="4" y="1198"/>
+        </scene>
+        <!--Sound Effect-->
+        <scene sceneID="2Ap-M2-aND">
+            <objects>
+                <viewController id="DZ1-Vy-Rew" userLabel="Sound Effect" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Bhe-uy-NpA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="OHn-k7-MhS"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Sound Effect" image="sound_effect" id="1DH-ZL-2rs"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="C1F-A1-FUm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="822" y="1198"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="AiS-sQ-jMc">
@@ -214,6 +230,7 @@
                     <connections>
                         <segue destination="whP-gf-Uak" kind="relationship" relationship="viewControllers" id="TT1-mf-qa1"/>
                         <segue destination="zwy-l0-bx4" kind="relationship" relationship="viewControllers" id="iOz-vL-z0c"/>
+                        <segue destination="DZ1-Vy-Rew" kind="relationship" relationship="viewControllers" id="plh-2j-3Lm"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GPH-JJ-us0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -226,5 +243,6 @@
         <image name="btn_orange" width="120" height="30"/>
         <image name="equalizer" width="20" height="20"/>
         <image name="fm_tuner" width="20" height="20"/>
+        <image name="sound_effect" width="20" height="20"/>
     </resources>
 </document>
