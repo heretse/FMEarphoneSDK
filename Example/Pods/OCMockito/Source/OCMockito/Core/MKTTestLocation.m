@@ -1,11 +1,9 @@
 //  OCMockito by Jon Reid, https://qualitycoding.org/
-//  Copyright 2017 Jonathan M. Reid. See LICENSE.txt
+//  Copyright 2018 Jonathan M. Reid. See LICENSE.txt
 
 #import "MKTTestLocation.h"
 
-#import <OCHamcrest/HCTestFailure.h>
-#import <OCHamcrest/HCTestFailureReporter.h>
-#import <OCHamcrest/HCTestFailureReporterChain.h>
+@import OCHamcrest;
 
 void MKTFailTest(id testCase, const char *fileName, int lineNumber, NSString *description)
 {

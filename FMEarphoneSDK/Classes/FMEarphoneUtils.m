@@ -10,8 +10,9 @@
 #import "FMEarphoneCommandDefines.h"
 #import "NSMutableArray+QueueAdditions.h"
 
-#define KEY_COMMAND_TYPE @"command_type"
-#define KEY_READ_SIZE    @"read_size"
+#define KEY_COMMAND_TYPE     @"command_type"
+#define KEY_COMMAND_REGISTER @"command_register"
+#define KEY_READ_SIZE        @"read_size"
 
 @implementation FMEarphoneUtils {
     EADSessionController *eadSessionController;
@@ -520,16 +521,16 @@ NSString *kFMEarphoneStatusChangedNotification = @"kFMEarphoneStatusChangedNotif
 
 #pragma mark - FM related command
 
-- (void)doI2CReadWithCommandType:(CommandType)commandType {
-    [self doI2CReadWithCommandType:commandType andSize:0x01];
+- (void)doI2CReadWithCommandType:(CommandType)commandType andRegister:(Byte)reg {
+    [self doI2CReadWithCommandType:commandType andRegister:reg andSize:0x01];
 }
 
-- (void)doI2CReadWithCommandType:(CommandType)commandType andSize:(Byte)size {
+- (void)doI2CReadWithCommandType:(CommandType)commandType andRegister:(Byte)reg andSize:(Byte)size {
     
     Byte cmd[5];
     cmd[0] = 0xde; // Command for external I2C read
     cmd[1] = 0xad; // Command for external I2C read
-    cmd[2] = 0x00; // reg; // Si4705 STATUS register address
+    cmd[2] = 0x00; //reg; // Si4705 STATUS register address
     cmd[3] = size; // Total number data reads for external I2C device
     cmd[4] = 0x22; // External Si4705 I2C address
     
@@ -545,13 +546,19 @@ NSString *kFMEarphoneStatusChangedNotification = @"kFMEarphoneStatusChangedNotif
     
     NSInteger commandType = [[[timer userInfo] objectForKey:KEY_COMMAND_TYPE] integerValue];
     
+    Byte reg[1] = {0x00};
+    NSData *cmdReg = (NSData *)[[timer userInfo] objectForKey:KEY_COMMAND_REGISTER];
+     if (cmdReg != nil) {
+         [cmdReg getBytes:reg length:1];
+     }
+     
     Byte size[1] = {0x01};
     NSData *readSize = (NSData *)[[timer userInfo] objectForKey:KEY_READ_SIZE];
     if (readSize != nil) {
         [readSize getBytes:size length:1];
     }
     
-    [self doI2CReadWithCommandType:commandType andSize:size[0]];
+    [self doI2CReadWithCommandType:commandType andRegister:0x00 andSize:size[0]];//reg[0]
 }
 
 - (void)setPropertyWithCommandType:(CommandType)commandType andArguments:(Byte [])argv {
@@ -1052,57 +1059,61 @@ NSString *kFMEarphoneStatusChangedNotification = @"kFMEarphoneStatusChangedNotif
                 break;
             case CommandSetFMPowerUp: {
                 NSLog(@"CommandSetFMPowerUp completed.");
-                [[NSRunLoop currentRunLoop] addTimer:[NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(doI2CReadWithTimer:) userInfo:@{KEY_COMMAND_TYPE:[NSNumber numberWithInteger:CommandSetFMPowerUpRead]} repeats:NO] forMode:NSRunLoopCommonModes];
+                Byte temp[1];
+                temp[0] = LAM_POWER_UP;
+                [[NSRunLoop currentRunLoop] addTimer:[NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(doI2CReadWithTimer:) userInfo:@{KEY_COMMAND_TYPE:[NSNumber numberWithInteger:CommandSetFMPowerUpRead], KEY_COMMAND_REGISTER:[NSData dataWithBytes:temp length:1]} repeats:NO] forMode:NSRunLoopCommonModes];
             }
                 break;
             case CommandSetRefclkFreq: {
                 NSLog(@"CommandSetRefclkFreq completed.");
-                [[NSRunLoop currentRunLoop] addTimer:[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(doI2CReadWithTimer:) userInfo:@{KEY_COMMAND_TYPE:[NSNumber numberWithInteger:CommandSetRefclkFreqRead]} repeats:NO] forMode:NSRunLoopCommonModes];
+                [self doI2CReadWithCommandType:CommandSetRefclkFreqRead andRegister:LAM_SET_PROPERTY];
             }
                 break;
             case CommandSetRefclkPrescale: {
                 NSLog(@"CommandSetRefclkPrescale completed.");
-                [[NSRunLoop currentRunLoop] addTimer:[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(doI2CReadWithTimer:) userInfo:@{KEY_COMMAND_TYPE:[NSNumber numberWithInteger:CommandSetRefclkPrescaleRead]} repeats:NO] forMode:NSRunLoopCommonModes];
+                [self doI2CReadWithCommandType:CommandSetRefclkPrescaleRead andRegister:LAM_SET_PROPERTY];
             }
                 break;
             case CommandSetDigitalOutputSampleRate: {
                 NSLog(@"CommandSetDigitalOutputSampleRate completed.");
-                [[NSRunLoop currentRunLoop] addTimer:[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(doI2CReadWithTimer:) userInfo:@{KEY_COMMAND_TYPE:[NSNumber numberWithInteger:CommandSetDigitalOutputSampleRateRead]} repeats:NO] forMode:NSRunLoopCommonModes];
+                [self doI2CReadWithCommandType:CommandSetDigitalOutputSampleRateRead andRegister:LAM_SET_PROPERTY];
             }
                 break;
             case CommandSetDigitalOutputFormat: {
                 NSLog(@"CommandSetDigitalOutputFormat completed.");
-                [self doI2CReadWithCommandType:CommandSetDigitalOutputFormatRead andSize:0x01];
+                [self doI2CReadWithCommandType:CommandSetDigitalOutputFormatRead andRegister:LAM_SET_PROPERTY];
             }
                 break;
             case CommandSetFMSeekFreqSpacing: {
                 NSLog(@"CommandSetFMSeekFreqSpacing completed.");
-                [self doI2CReadWithCommandType:CommandSetFMSeekFreqSpacingRead andSize:0x01];
+                [self doI2CReadWithCommandType:CommandSetFMSeekFreqSpacingRead andRegister:LAM_SET_PROPERTY];
             }
                 break;
             case CommandSetFMSeekTuneRssiThreshold: {
                 NSLog(@"CommandSetFMSeekTuneRssiThreshold completed.");
-                [self doI2CReadWithCommandType:CommandSetFMSeekTuneRssiThresholdRead andSize:0x01];
+                [self doI2CReadWithCommandType:CommandSetFMSeekTuneRssiThresholdRead andRegister:LAM_SET_PROPERTY];
             }
                 break;
             case CommandSetFMTuneFreq: {
                 NSLog(@"CommandSetFMTuneFreq completed.");
-                [self doI2CReadWithCommandType:CommandSetFMTuneFreqRead andSize:0x01];
+                [self doI2CReadWithCommandType:CommandSetFMTuneFreqRead andRegister:LAM_FM_TUNE_FREQ];
             }
                 break;
             case CommandGetFMIntStatus: {
                 NSLog(@"CommandGetFMIntStatus completed.");
-                [self doI2CReadWithCommandType:CommandGetFMIntStatusRead];
+                [self doI2CReadWithCommandType:CommandGetFMIntStatusRead andRegister:LAM_GET_INT_STATUS];
             }
                 break;
             case CommandGetFMTuneStatus: {
                 NSLog(@"CommandGetFMTuneStatus completed.");
-                [self doI2CReadWithCommandType:CommandGetFMTuneStatusRead andSize:0x08];
+                [self doI2CReadWithCommandType:CommandGetFMTuneStatusRead andRegister:LAM_FM_TUNE_STATUS andSize:0x08];
             }
                 break;
             case CommandFMSeekStart: {
                 NSLog(@"CommandFMSeekStart completed.");
-                [[NSRunLoop currentRunLoop] addTimer:[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(doI2CReadWithTimer:) userInfo:@{KEY_COMMAND_TYPE:[NSNumber numberWithInteger:CommandFMSeekStartRead]} repeats:NO] forMode:NSRunLoopCommonModes];
+                Byte temp[1];
+                temp[0] = LAM_FM_SEEK_START;
+                [[NSRunLoop currentRunLoop] addTimer:[NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(doI2CReadWithTimer:) userInfo:@{KEY_COMMAND_TYPE:[NSNumber numberWithInteger:CommandFMSeekStartRead], KEY_COMMAND_REGISTER:[NSData dataWithBytes:temp length:1]} repeats:NO] forMode:NSRunLoopCommonModes];
             }
                 break;
             case CommandSetFMPowerDown: {
@@ -1114,7 +1125,7 @@ NSString *kFMEarphoneStatusChangedNotification = @"kFMEarphoneStatusChangedNotif
                 break;
             case CommandGetFMRsqStatus: {
                 NSLog(@"CommandGetFMRsqStatus completed.");
-                [self doI2CReadWithCommandType:CommandGetFMRsqStatusRead andSize:0x08];
+                [self doI2CReadWithCommandType:CommandGetFMRsqStatusRead andRegister:LAM_FM_RSQ_STATUS andSize:0x08];
             }
                 break;
                 

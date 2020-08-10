@@ -1,5 +1,10 @@
 //  OCHamcrest by Jon Reid, https://qualitycoding.org/
-//  Copyright 2017 hamcrest.org. See LICENSE.txt
+//  Copyright 2018 hamcrest.org. See LICENSE.txt
+
+#import <Foundation/Foundation.h>
+
+FOUNDATION_EXPORT double OCHamcrestVersionNumber;
+FOUNDATION_EXPORT const unsigned char OCHamcrestVersionString[];
 
 #import <OCHamcrest/HCAllOf.h>
 #import <OCHamcrest/HCAnyOf.h>

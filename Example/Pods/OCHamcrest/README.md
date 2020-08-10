@@ -9,7 +9,7 @@ What is OCHamcrest?
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 
-OCHamcrest is an Objective-C library providing:
+OCHamcrest is an Objective-C module providing:
 
 * a library of "matcher" objects for declaring rules to check whether a given object matches those
   rules.
@@ -27,8 +27,8 @@ We'll start by writing a very simple Xcode unit test, but instead of using XCTes
 matcher:
 
 ```obj-c
+@import OCHamcrest;
 @import XCTest;
-#import <OCHamcrest/OCHamcrest.h>
 
 @interface BiscuitTest : XCTestCase
 @end
@@ -180,7 +180,7 @@ How do I add OCHamcrest to my project?
 --------------------------------------
 
 The Examples folder shows projects using OCHamcrest either through CocoaPods or through the prebuilt
-frameworks, for iOS and Mac OS X development.
+frameworks, for iOS and macOS development.
 
 ### CocoaPods
 
@@ -197,15 +197,13 @@ end
 
 Use the following import:
 
-    #import <OCHamcrest/OCHamcrest.h>
+    @import OCHamcrest;
 
 ### Carthage
 
 Add the following to your Cartfile:
 
-```
-github "hamcrest/OCHamcrest" ~> 7.0
-```
+    github "hamcrest/OCHamcrest" ~> 7.0
 
 Then drag the the built framework from the appropriate Carthage/Build directory into your project,
 but with "Copy items into destination group's folder" disabled.
@@ -216,7 +214,7 @@ Prebuilt binaries are available on [GitHub](https://github.com/hamcrest/OCHamcre
 binaries are packaged as frameworks:
 
 * __OCHamcrestIOS.framework__ for iOS development
-* __OCHamcrest.framework__ for Mac OS X development
+* __OCHamcrest.framework__ for macOS development
 
 Drag the appropriate framework into your project, specifying "Copy items into destination group's
 folder". Then specify `-ObjC` in your "Other Linker Flags".
@@ -225,15 +223,15 @@ folder". Then specify `-ObjC` in your "Other Linker Flags".
 
 Use the following import:
 
-    #import <OCHamcrestIOS/OCHamcrestIOS.h>
+    @import OCHamcrestIOS;
 
-#### Mac OS X Development:
+#### macOS Development:
 
 Add a "Copy Files" build phase to copy OCHamcrest.framework to your Products Directory.
 
 Use the following import:
 
-    #import <OCHamcrest/OCHamcrest.h>
+    @import OCHamcrest;
 
 ### Build Your Own
 

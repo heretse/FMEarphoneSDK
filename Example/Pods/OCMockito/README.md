@@ -2,11 +2,13 @@
 
 [![Build Status](https://travis-ci.org/jonreid/OCMockito.svg?branch=master)](https://travis-ci.org/jonreid/OCMockito)
 [![Coverage Status](https://coveralls.io/repos/jonreid/OCMockito/badge.svg?branch=master)](https://coveralls.io/r/jonreid/OCMockito?branch=master)
-[![Cocoapods Version](https://cocoapod-badges.herokuapp.com/v/OCMockito/badge.png)](http://cocoapods.org/pods/OCMockito)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Cocoapods Version](https://cocoapod-badges.herokuapp.com/v/OCMockito/badge.png)](http://cocoapods.org/pods/OCMockito)
+![Cocoapods Downloads](https://img.shields.io/cocoapods/dt/OCMockito.svg)
+[![Twitter Follow](https://img.shields.io/twitter/follow/qcoding.svg?style=social)](https://twitter.com/qcoding)
 
 
-OCMockito is an iOS and Mac OS X implementation of Mockito, supporting creation,
+OCMockito is an Objective-C implementation of Mockito, supporting creation,
 verification and stubbing of mock objects.
 
 Key differences from other mocking frameworks:
@@ -176,6 +178,8 @@ the method with a dummy argument, then call `-withMatcher:forArgument:`
  willReturn:@"foo"];
 ```
 
+This is particularly useful for ignoring `NSError **` parameters: pass in `NULL`, but override it with an `anything()` matcher.
+
 Use the shortcut `-withMatcher:` to specify a matcher for a single argument:
 
 ```obj-c
@@ -335,7 +339,7 @@ How do I add OCMockito to my project?
 -------------------------------------
 
 The Examples folder shows projects using OCMockito either through CocoaPods or
-through the prebuilt frameworks, for iOS and Mac OS X development.
+through the prebuilt frameworks, for iOS and macOS development.
 
 ### CocoaPods
 
@@ -352,8 +356,8 @@ end
 
 Use the following imports:
 
-    #import <OCHamcrest/OCHamcrest.h>
-    #import <OCMockito/OCMockito.h>
+    @import OCHamcrest;
+    @import OCMockito;
 
 ### Carthage
 
@@ -375,7 +379,7 @@ Prebuilt binaries are available on GitHub for
 The binaries are packaged as frameworks:
 
 * __OCMockitoIOS.framework__ for iOS development
-* __OCMockito.framework__ for Mac OS X development
+* __OCMockito.framework__ for macOS development
 
 OCHamcrest comes in a similar scheme. Drag the appropriate frameworks for both
 both OCMockito and OCHamcrest into your project, specifying "Copy items into
@@ -385,19 +389,19 @@ destination group's folder". Then specify `-ObjC` in your "Other Linker Flags".
 
 Use the following imports:
 
-    #import <OCHamcrestIOS/OCHamcrestIOS.h>
-    #import <OCMockitoIOS/OCMockitoIOS.h>
+	@import OCHamcrestIOS;
+	@import OCMockitoIOS;
 
 
-#### Mac OS X Development:
+#### macOS Development:
 
 Add a "Copy Files" build phase to copy OCMockito.framework and
 OCHamcrest.framework to your Products Directory.
 
 Use the following imports:
 
-    #import <OCHamcrest/OCHamcrest.h>
-    #import <OCMockito/OCMockito.h>
+    @import OCHamcrest;
+    @import OCMockito;
 
 
 ### Build Your Own

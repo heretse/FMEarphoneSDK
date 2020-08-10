@@ -11,8 +11,8 @@ PODS:
   - Nimble-Snapshots/Core (6.3.0):
     - FBSnapshotTestCase (~> 2.0)
     - Nimble (~> 7.0)
-  - OCHamcrest (7.0.2)
-  - OCMockito (5.0.1):
+  - OCHamcrest (7.1.1)
+  - OCMockito (5.1.1):
     - OCHamcrest (~> 7.0)
   - Quick (1.2.0)
 
@@ -25,7 +25,7 @@ DEPENDENCIES:
   - Quick (~> 1.2.0)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - FBSnapshotTestCase
     - Nimble
     - Nimble-Snapshots
@@ -42,10 +42,10 @@ SPEC CHECKSUMS:
   FMEarphoneSDK: 886dbc4cb7be6c5d71d9bceb172c269f88bf8cf3
   Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
   Nimble-Snapshots: f5459b5b091678dc942d03ec4741cacb58ba4a52
-  OCHamcrest: 706bfbf69a3df55a873bad096014e80e2e8ca93c
-  OCMockito: 063837a086c058e764fcd23e771089c1759e7197
+  OCHamcrest: 3506736397451c35d8763ff0a9b13492e544115f
+  OCMockito: eccb29c256cbdd6c7bc206718cbb06ef737daa8b
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
 
 PODFILE CHECKSUM: fcd0cbe964c8f5976deb366d9e755fa565327c81
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3

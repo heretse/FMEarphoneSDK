@@ -1,5 +1,5 @@
 //  OCHamcrest by Jon Reid, https://qualitycoding.org/
-//  Copyright 2017 hamcrest.org. See LICENSE.txt
+//  Copyright 2018 hamcrest.org. See LICENSE.txt
 
 #import "HCIsEmptyCollection.h"
 
@@ -27,7 +27,7 @@
 @end
 
 
-FOUNDATION_EXPORT id HC_isEmpty()
+FOUNDATION_EXPORT id HC_isEmpty(void)
 {
     return [[HCIsEmptyCollection alloc] init];
 }

@@ -1,13 +1,10 @@
 //  OCMockito by Jon Reid, https://qualitycoding.org/
-//  Copyright 2017 Jonathan M. Reid. See LICENSE.txt
+//  Copyright 2018 Jonathan M. Reid. See LICENSE.txt
 
 #import "MKTInvocationMatcher.h"
 
 #import "NSInvocation+OCMockito.h"
-#import <OCHamcrest/HCArgumentCaptor.h>
-#import <OCHamcrest/HCAssertThat.h>
-#import <OCHamcrest/HCIsNil.h>
-#import <OCHamcrest/HCWrapInMatcher.h>
+@import OCHamcrest;
 
 
 @interface MKTUnspecifiedArgumentPlaceholder : NSObject

@@ -1,5 +1,5 @@
 //  OCHamcrest by Jon Reid, https://qualitycoding.org/
-//  Copyright 2017 hamcrest.org. See LICENSE.txt
+//  Copyright 2018 hamcrest.org. See LICENSE.txt
 
 #import "HCDescribedAs.h"
 
@@ -95,7 +95,7 @@
     if (index < 0)
         [[description appendText:@"%"] appendText:component];
     else
-        [[description appendDescriptionOf:self.values[index]] appendText:remainder];
+        [[description appendDescriptionOf:self.values[(NSUInteger)index]] appendText:remainder];
 }
 
 @end
